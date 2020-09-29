@@ -51,6 +51,21 @@ app.get("/getSplits/:id", async (req, res) => {
   }
 });
 
+app.delete("/deleteSplit/:id", async (req, res) => {
+  try {
+    debugger;
+    const { id } = req.params;
+    const splits = await pool.query("delete from split where split_id = $1", [
+      id,
+    ]);
+
+    console.log(splits);
+    res.json(splits.rows);
+  } catch (err) {
+    console.log(err.message);
+  }
+});
+
 app.listen(PORT, () => {
   console.log("server has started");
 });

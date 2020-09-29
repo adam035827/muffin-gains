@@ -3,9 +3,22 @@ import React, { Fragment, useEffect, useState } from "react";
 const ListOfSplits = () => {
   const [splits, setSplits] = useState([]);
 
+  const deleteSplit = async (id) => {
+    try {
+      const deleteSplit = await fetch(`/deleteSplit/${id}`, {
+        method: "DELETE",
+      });
+
+      console.log("delete", id);
+      getSplits();
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
   const getSplits = async () => {
     try {
-      const response = await fetch("/getSplits/");
+      const response = await fetch(`/getSplits/`);
       const data = await response.json();
 
       setSplits(data);
@@ -23,16 +36,26 @@ const ListOfSplits = () => {
       <table className="table mt-5 text-center">
         <thead>
           <tr>
-            <td>Split</td>
-            <td>User Id</td>
+            <th>Split</th>
+            <th>Select</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
           {splits.map((split) => (
-            <tr>
-              <td>{split.split_id}</td>
+            <tr key={split.split_id}>
               <td>{split.name}</td>
-              <td>{split.user_id}</td>
+              <td>
+                <button className="btn btn-primary">Select</button>
+              </td>
+              <td>
+                <button
+                  className="btn btn-danger"
+                  onClick={() => deleteSplit(split.split_id)}
+                >
+                  Delete
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>

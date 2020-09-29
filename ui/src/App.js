@@ -7,7 +7,7 @@ import ListOfSplits from "./components/ListOfSplits.js";
 function App() {
   return (
     <div className="App">
-      <Split></Split>
+      <h1>Muffin Gains</h1>
       <ListOfSplits></ListOfSplits>
       <CreateSplit></CreateSplit>
     </div>

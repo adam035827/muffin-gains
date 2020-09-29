@@ -12,7 +12,7 @@ const CreateSplit = () => {
         user_id: 0,
       };
 
-      const response = await fetch("/newSplit", {
+      const response = await fetch(`/newSplit`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
