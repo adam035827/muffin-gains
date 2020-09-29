@@ -1,13 +1,22 @@
 const Pool = require("pg").Pool;
+require("dotenv").config();
 
-const pool = new Pool({
-  user: "ojtdkgyxzkfmhy",
-  password: "b47b901f25eccfc4c50053f0aa6c4b402e225e3e837ef73fd7d9808cc14f92d6",
-  host: "ec2-23-23-36-227.compute-1.amazonaws.com",
-  port: 5432,
-  database: "d7rjh0vtg2dsnb",
+const devConfig = {
+  user: process.env.PG_USER,
+  password: process.env.PG_PASSWORD,
+  host: process.env.PG_HOST,
+  port: process.env.PG_PORT,
+  database: process.env.PG_DATABASE,
   ssl: true,
   rejectUnhauthorized: false,
-});
+};
+
+const prodConfig = {
+  connectionString: process.env.DATABASE_URL,
+};
+
+const pool = new Pool(
+  process.env.NODE_ENV == "production" ? prodConfig : devConfig
+);
 
 module.exports = pool;

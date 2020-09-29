@@ -5,7 +5,7 @@ const ListOfSplits = () => {
 
   const getSplits = async () => {
     try {
-      const response = await fetch("http://localhost:5000/getSplits/");
+      const response = await fetch("/getSplits/");
       const data = await response.json();
 
       setSplits(data);

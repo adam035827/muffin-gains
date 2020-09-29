@@ -2,11 +2,17 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const pool = require("./db");
+const path = require("path");
+const PORT = process.env.PORT || 5000;
+
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 app.use(cors());
 app.use(express.json());
 
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "ui/build")));
+}
 
 app.post("/newSplit", async (req, res) => {
   try {
@@ -45,6 +51,6 @@ app.get("/getSplits/:id", async (req, res) => {
   }
 });
 
-app.listen(5000, () => {
+app.listen(PORT, () => {
   console.log("server has started");
 });
