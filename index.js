@@ -32,8 +32,8 @@ app.post("/newSplit", async (req, res) => {
 
 app.get("/getSplits", async (req, res) => {
   try {
-    const splits = await pool.query("select * from split");
-    res.json(splits.rows);
+    const query = await pool.query("select * from split");
+    res.json(query.rows);
   } catch (err) {
     console.log(err.message);
   }
@@ -42,10 +42,10 @@ app.get("/getSplits", async (req, res) => {
 app.get("/getSplits/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const splits = await pool.query("select * from split where user_id = $1", [
+    const query = await pool.query("select * from split where user_id = $1", [
       id,
     ]);
-    res.json(splits.rows);
+    res.json(query.rows);
   } catch (err) {
     console.log(err.message);
   }
@@ -53,14 +53,26 @@ app.get("/getSplits/:id", async (req, res) => {
 
 app.delete("/deleteSplit/:id", async (req, res) => {
   try {
-    debugger;
     const { id } = req.params;
-    const splits = await pool.query("delete from split where split_id = $1", [
+    const query = await pool.query("delete from split where split_id = $1", [
       id,
     ]);
 
-    console.log(splits);
-    res.json(splits.rows);
+    res.json(query.rows);
+  } catch (err) {
+    console.log(err.message);
+  }
+});
+
+app.get("/getExercises/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const query = await pool.query(
+      "select * from exercise where split_id = $1",
+      [id]
+    );
+
+    res.json(query.rows);
   } catch (err) {
     console.log(err.message);
   }

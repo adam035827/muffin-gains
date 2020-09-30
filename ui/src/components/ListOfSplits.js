@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 
 const ListOfSplits = () => {
   const [splits, setSplits] = useState([]);
@@ -9,7 +10,6 @@ const ListOfSplits = () => {
         method: "DELETE",
       });
 
-      console.log("delete", id);
       getSplits();
     } catch (err) {
       console.log(err.message);
@@ -46,7 +46,9 @@ const ListOfSplits = () => {
             <tr key={split.split_id}>
               <td>{split.name}</td>
               <td>
-                <button className="btn btn-primary">Select</button>
+                <NavLink to={`/split/${split.split_id}`}>
+                  <button className="btn btn-dark">Select</button>
+                </NavLink>
               </td>
               <td>
                 <button
