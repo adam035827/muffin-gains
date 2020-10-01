@@ -78,6 +78,27 @@ app.get("/getExercises/:id", async (req, res) => {
   }
 });
 
+app.post("/newExercise", async (req, res) => {
+  try {
+    const query = await pool.query(
+      "insert into exercise (name, split_id, last_modified_date, weight, reps, sets, is_strength) values ($1, $2, $3, $4, $5, $6, $7);",
+      [
+        req.body.name,
+        req.body.split_id,
+        req.body.date,
+        req.body.weight,
+        req.body.reps,
+        req.body.sets,
+        req.body.is_strength,
+      ]
+    );
+
+    res.json(query.rows[0]);
+  } catch (err) {
+    console.log(err.message);
+  }
+});
+
 app.listen(PORT, () => {
   console.log("server has started");
 });

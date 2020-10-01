@@ -27,7 +27,8 @@ create table exercise
     last_modified_date DATE NOT NULL,
     weight INT NOT NULL,
     reps INT NOT NULL,
-    sets int NOT NULL
+    sets int NOT NULL,
+    is_strength boolean DEFAULT false NOT NULL
 );
 
 insert into exercise
