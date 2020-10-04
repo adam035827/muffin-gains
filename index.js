@@ -21,7 +21,7 @@ app.post("/newSplit", async (req, res) => {
         req.body.name +
         "', " +
         req.body.user_id +
-        ");"
+        ") RETURNING *;"
     );
 
     res.json(query.rows[0]);
@@ -54,9 +54,10 @@ app.get("/getSplits/:id", async (req, res) => {
 app.delete("/deleteSplit/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const query = await pool.query("delete from split where split_id = $1", [
-      id,
-    ]);
+    const query = await pool.query(
+      "delete from split where split_id = $1 RETURNING *",
+      [id]
+    );
 
     res.json(query.rows);
   } catch (err) {
@@ -81,7 +82,7 @@ app.get("/getExercises/:id", async (req, res) => {
 app.post("/newExercise", async (req, res) => {
   try {
     const query = await pool.query(
-      "insert into exercise (name, split_id, last_modified_date, weight, reps, sets, is_strength) values ($1, $2, $3, $4, $5, $6, $7);",
+      "insert into exercise (name, split_id, last_modified_date, weight, reps, sets, is_strength) values ($1, $2, $3, $4, $5, $6, $7) RETURNING *;",
       [
         req.body.name,
         req.body.split_id,
