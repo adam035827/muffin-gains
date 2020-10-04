@@ -2,6 +2,7 @@ import React, { useState, useEffect, Fragment } from "react";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import CreateExercise from "./CreateExercise";
+import UpdateExercise from "./UpdateExercise";
 
 const Split = () => {
   let params = useParams();
@@ -36,21 +37,10 @@ const Split = () => {
             <th>Is For Strength</th>
           </tr>
         </thead>
-        <tbody>
-          {exercises.map((exercise) => (
-            <tr key={exercise.exercise_id}>
-              <td>{exercise.name}</td>
-              <td>
-                {moment(exercise.last_modified_date).format("MM/DD/YYYY")}
-              </td>
-              <td>{exercise.weight}</td>
-              <td>{exercise.reps}</td>
-              <td>{exercise.sets}</td>
-              <td>{exercise.is_strength ? "Yes" : "No"}</td>
-            </tr>
-          ))}
-        </tbody>
       </table>
+      {exercises.map((exercise) => (
+        <UpdateExercise exercise={exercise}></UpdateExercise>
+      ))}
       <CreateExercise split_id={params.split_id}></CreateExercise>
     </Fragment>
   );

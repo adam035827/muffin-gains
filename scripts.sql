@@ -31,6 +31,19 @@ create table exercise
     is_strength boolean DEFAULT false NOT NULL
 );
 
+create table archived_exercise
+(
+    archived_exercise serial PRIMARY KEY,
+    exercise_id INT,
+    name VARCHAR (50) NOT NULL,
+    split_id INT NOT NULL,
+    last_modified_date DATE NOT NULL,
+    weight INT NOT NULL,
+    reps INT NOT NULL,
+    sets int NOT NULL,
+    is_strength boolean DEFAULT false NOT NULL
+);
+
 insert into exercise
     ( exercise_id, name, split_id, last_modified_date, weight, reps, sets)
 values
