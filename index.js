@@ -100,6 +100,10 @@ app.post("/newExercise", async (req, res) => {
   }
 });
 
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "ui/build/index.html"));
+});
+
 app.listen(PORT, () => {
   console.log("server has started");
 });
