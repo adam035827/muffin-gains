@@ -16,7 +16,6 @@ if (process.env.NODE_ENV === "production") {
 
 app.get("/*", (req, res) => {
   let url = path.join(__dirname, "ui/build", "index.html");
-  if (!url.startsWith("/app/")) url = url.substring(1);
   res.sendFile(url);
 });
 
