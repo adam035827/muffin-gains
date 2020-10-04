@@ -10,13 +10,13 @@ const UpdateExercise = (props) => {
 
   const archiveBody = {
     exercise_id: props.exercise.exercise_id,
-    name: name,
+    name: props.exercise.name,
     split_id: props.exercise.split_id,
-    date: date,
-    weight: weight,
-    reps: reps,
-    sets: sets,
-    is_strength: isStrength,
+    date: props.exercise.last_modified_date,
+    weight: props.exercise.weight,
+    reps: props.exercise.reps,
+    sets: props.exercise.sets,
+    is_strength: props.exercise.is_strength,
   };
 
   const onSubmit = async (e) => {
@@ -38,7 +38,6 @@ const UpdateExercise = (props) => {
         }
       );
 
-      console.log(archiveBody);
       const archiveResponse = await fetch(`/newArchivedExercise`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
