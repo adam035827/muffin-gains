@@ -14,6 +14,12 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "ui/build")));
 }
 
+app.get("/*", (req, res) => {
+  let url = path.join(__dirname, "ui/build", "index.html");
+  if (!url.startsWith("/app/")) url = url.substring(1);
+  res.sendFile(url);
+});
+
 app.post("/newSplit", async (req, res) => {
   try {
     const query = await pool.query(
